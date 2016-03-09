@@ -17,7 +17,7 @@ and open the template in the editor.
 <a href="createbooking.jsp">CREATE BOOKING</a><br>
 <a href="updatebooking.jsp">UPDATE BOOKING</a><br>
 
-
+<a href="TodaysClasses.jsp">Todays Classes</a><br>
 
 
 

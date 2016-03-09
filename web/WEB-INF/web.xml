@@ -12,6 +12,10 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>Servlets.Register</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffClasses</servlet-name>
+        <servlet-class>Servlets.StaffClasses</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffClasses</servlet-name>
+        <url-pattern>/StaffClasses</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

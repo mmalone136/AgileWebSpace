@@ -17,48 +17,121 @@ import java.util.ArrayList;
  * @author Matt
  */
 public class LoginModel {
-    
-	// Perform login
-	public String[] doLogin(String username, String password) {
-		try {
-			// TODO: Gain username && password from somewhere
-			//username = "000001";
-			//password = "turkeyBaconSandwich";
-			ArrayList<String> theStrings = new ArrayList<String>();
-                        String [] theList = new String[4];
-			
-			
-			String theDriver = "com.mysql.jdbc.Driver";
-			Class driver_class = Class.forName(theDriver);
-			Driver driver = (Driver) driver_class.newInstance();
-			DriverManager.registerDriver(driver);
-			Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
-			PreparedStatement ps = conn.prepareStatement("Select * from user where username=? and password=?");
-			ps.setString(1, username);
-			ps.setString(2, password);
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				String returnedUser = rs.getString("username");
-				String returnedPwd = rs.getString("password");
-				String returnedFirstname = rs.getString("firstname");
-				String returnedSurname = rs.getString("surname");
-				
-                                theList[0] = returnedUser;
-                                theList[1] = returnedPwd;
-                                theList[2] = returnedFirstname;
-                                theList[3] = returnedSurname;
-                                
-                           	return theList;
-			} else {
-				return null;
-			}
 
+    // Perform login
+    public String[] generalLogin(String username, String password) {
+        try {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+            String[] theList = new String[6];
 
+            String theDriver = "com.mysql.jdbc.Driver";
+            Class driver_class = Class.forName(theDriver);
+            Driver driver = (Driver) driver_class.newInstance();
+            DriverManager.registerDriver(driver);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            PreparedStatement ps = conn.prepareStatement("call login_new (?,?)");
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            String userType;
+            if (rs.next()) {
+                String returnedFirstname = rs.getString("firstname");
+                String returnedSurname = rs.getString("surname");
+                try{
+                userType = rs.getString("staff");
+                }catch (Exception e){
+                userType = rs.getString("student");
+                
+                }
 
-	}
+                theList[0] = username;
+                theList[1] = password;
+                theList[2] = returnedFirstname;
+                theList[3] = returnedSurname;
+                
+
+                if (userType.equals("staff")) {
+                    String staffID = rs.getString("idStaff");
+                    theList[4] = staffID;
+                    theList[5] = "Staff";
+                } else {
+                    String studentID = rs.getString("idStudent");
+                    theList[4] = studentID;
+                    theList[5] = "Student";
+                }
+                return theList;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+/*
+    public String[] staffLogin(String username) {
+
+        try {
+
+            String[] theList = new String[3];
+
+            String theDriver = "com.mysql.jdbc.Driver";
+            Class driver_class = Class.forName(theDriver);
+            Driver driver = (Driver) driver_class.newInstance();
+            DriverManager.registerDriver(driver);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            PreparedStatement ps = conn.prepareStatement("call login_staff (?)");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String staffID = rs.getString("idStaff");
+                int jobID = rs.getInt("Job_idJob");
+
+                theList[0] = username;
+                theList[1] = staffID;
+                theList[2] = String.valueOf(jobID);
+
+                return theList;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public String studentLogin(String username) {
+
+        try {
+
+            String[] theList = new String[2];
+
+            String theDriver = "com.mysql.jdbc.Driver";
+            Class driver_class = Class.forName(theDriver);
+            Driver driver = (Driver) driver_class.newInstance();
+            DriverManager.registerDriver(driver);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            PreparedStatement ps = conn.prepareStatement("call login_staff (?)");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String staffID = rs.getString("idStaff");
+
+                return theList;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+*/
 }

@@ -5,7 +5,6 @@ package Servlets;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import Models.LoginModel;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,68 +33,63 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        //response.setContentType("text/html;charset=UTF-8");
+
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
 
-        String [] theList;
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-        HttpSession session=request.getSession();
+        String[] theList;
+        String[] theSecondList;
+        HttpSession session = request.getSession();
 
-            LoginModel lm = new LoginModel();
-			theList= lm.doLogin(username,password);
-                        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
-                    
-            response.setContentType("text/xml;charset=UTF-8");
-            PrintWriter writer = response.getWriter();
-            writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            
-            if (theList!=null)      
-            {
-           writer.append("<login_details>");
-            
-            
-            writer.append("<user>");
-        writer.append("<username>").append(theList[0]).append("</username>");
-        writer.append("<password>").append(theList[1]).append("</password>");
-        writer.append("<firstname>").append(theList[2]).append("</firstname>");
-        writer.append("<surname>").append(theList[3]).append("</surname>");
-        
-        writer.append("</user>");
-            
-            writer.append("</login_details>");
+        LoginModel lm = new LoginModel();
+        theList = lm.generalLogin(username, password);
+        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
 
-		  request.setAttribute("list", theList);
-                  response.getWriter();
-            //RequestDispatcher rd=request.getRequestDispatcher("writer");
-	    //rd.forward(request,response);
-                  System.out.println("PLACEHOLDER");
-            }else{
-                  writer.append("<login_details>");
+        response.setContentType("text/xml;charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+
+        if (theList != null) {
+
+            //theSecondList = lm.staffLogin(username);
+            String tag = "";
+            String id = "";
+            if (theList[5].equals("Staff")) {
+                tag = "staff";
+                id = "staff_id";
+            } else if (theList[5].equals("Student")) {
+                tag = "student";
+                id = "student_id";
+            }
+
+            writer.append("<").append(tag).append(">");
+            writer.append("<username>").append(username).append("</username>");
+            writer.append("<firstname>").append(theList[2]).append("</firstname>");
+            writer.append("<surname>").append(theList[3]).append("</surname>");
+            //writer.append("<job_ID>").append(theSecondList[2]).append("</job_ID>");
+            writer.append("<").append(id).append(">").append(theList[4]).append("</").append(id).append(">");
+
+            writer.append("</").append(tag).append(">");
+
+            request.setAttribute("list", theList);
+            response.getWriter();
+            System.out.println("PLACEHOLDER");
+            //}
+
+        } else {
+            writer.append("<login_details>");
             writer.append("<user>");
             writer.append("<username>Login Failed</username>");
-             writer.append("</user>");
-            
+            writer.append("</user>");
             writer.append("</login_details>");
-            }
-        
+        }
     }
+
 }
