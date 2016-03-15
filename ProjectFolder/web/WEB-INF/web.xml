@@ -20,6 +20,14 @@
         <servlet-name>AttendanceList</servlet-name>
         <servlet-class>Servlets.AttendanceList</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetAllStaffModules</servlet-name>
+        <servlet-class>Servlets.StaffModules</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffModules</servlet-name>
+        <servlet-class>Servlets.StaffModules</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -39,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>AttendanceList</servlet-name>
         <url-pattern>/AttendanceList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffModules</servlet-name>
+        <url-pattern>/StaffModules</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

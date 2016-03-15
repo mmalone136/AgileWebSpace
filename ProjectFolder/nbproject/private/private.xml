@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/Users/user1/Desktop/THEAGILEWEBTHINGS/Agile/src/java/Servlets/CreateBooking.java</file>
             <file>file:/C:/Users/user1/Desktop/THEAGILEWEBTHINGS/Agile/src/java/Models/BookingModel.java</file>
-            <file>file:/C:/Users/user1/Desktop/THEAGILEWEBTHINGS/Agile/src/java/Servlets/AttendanceList.java</file>
-            <file>file:/C:/Users/user1/Desktop/THEAGILEWEBTHINGS/Agile/src/java/Models/AttendanceListModel.java</file>
+            <file>file:/C:/Users/user1/Desktop/THEAGILEWEBTHINGS/Agile/src/java/Models/RegisterModel.java</file>
+            <file>file:/C:/Users/user1/Desktop/THEAGILEWEBTHINGS/Agile/src/java/Servlets/Login.java</file>
+            <file>file:/C:/Users/user1/Desktop/THEAGILEWEBTHINGS/Agile/web/updatebooking.jsp</file>
         </group>
     </open-files>
 </project-private>

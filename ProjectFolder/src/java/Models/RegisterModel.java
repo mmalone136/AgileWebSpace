@@ -10,6 +10,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -36,8 +37,14 @@ public class RegisterModel {
                         ps.setInt(2, bookingID);
 			ps.setString(3, "");
                         
-			ResultSet rs = ps.executeQuery();
-
+                        
+                        ResultSet rs = ps.executeQuery();
+                        
+                        
+			//ResultSet rs;
+                        //ps.executeUpdate();
+                        //int i = ps.getUpdateCount();
+                        
                         return true;
 
 		} catch (Exception e) {

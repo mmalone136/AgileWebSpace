@@ -14,7 +14,7 @@
     <body>
 <form method="POST"  action="CreateBooking">
                 <ul>
-                    <li>BookingID <input type="hidden" name="book" value="36" ></li>
+                    <li>BookingID <input type="hidden" name="book" value="147" ></li>
                     <li>FLAG UPDATE<input type="hidden" name="flag" value="Update" ></li>
                     
                     
