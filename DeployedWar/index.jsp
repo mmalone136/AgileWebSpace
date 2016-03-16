@@ -21,7 +21,7 @@ and open the template in the editor.
 <a href="GetAttendanceList.jsp">Get Attendance List</a><br>
 <a href="SignIntoClass.jsp">Register For Class</a><br>
 <a href="allModules.jsp">Get The Modules</a><br>
-
+<a href="gettoattend.jsp">Get To Attend</a><br>
 
 
 

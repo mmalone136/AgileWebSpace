@@ -5,6 +5,7 @@
  */
 package Models;
 
+import Classes.Connector;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -26,11 +27,16 @@ public class StaffClassModel {
 
             
 
-            String theDriver = "com.mysql.jdbc.Driver";
-            Class driver_class = Class.forName(theDriver);
-            Driver driver = (Driver) driver_class.newInstance();
-            DriverManager.registerDriver(driver);
-            Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            //String theDriver = "com.mysql.jdbc.Driver";
+            //Class driver_class = Class.forName(theDriver);
+            //Driver driver = (Driver) driver_class.newInstance();
+            //DriverManager.registerDriver(driver);
+            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            
+            Connector c = new Connector();
+            Connection conn = c.getConnection();
+            
+            
             PreparedStatement ps = conn.prepareStatement("call todays_classes (?)");
             ps.setString(1, staff_ID);
             ResultSet rs = ps.executeQuery();
@@ -71,11 +77,16 @@ public class StaffClassModel {
 
             
 
-            String theDriver = "com.mysql.jdbc.Driver";
-            Class driver_class = Class.forName(theDriver);
-            Driver driver = (Driver) driver_class.newInstance();
-            DriverManager.registerDriver(driver);
-            Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            //String theDriver = "com.mysql.jdbc.Driver";
+            //Class driver_class = Class.forName(theDriver);
+            //Driver driver = (Driver) driver_class.newInstance();
+            //DriverManager.registerDriver(driver);
+            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            
+            Connector c = new Connector();
+            Connection conn = c.getConnection();
+            
+            
             PreparedStatement ps = conn.prepareStatement("call get_modules_for_staff(?)");
             ps.setString(1, staff_ID);
             ResultSet rs = ps.executeQuery();

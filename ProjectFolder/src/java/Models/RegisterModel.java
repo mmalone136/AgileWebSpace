@@ -5,6 +5,7 @@
  */
 package Models;
 
+import Classes.Connector;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -21,17 +22,21 @@ public class RegisterModel {
 
     public boolean doRegister(int bookingID, String username) {
         try {
-			// TODO: Gain username && password from somewhere
+            // TODO: Gain username && password from somewhere
             //username = "000001";
             //password = "turkeyBaconSandwich";
             //ArrayList<String> theStrings = new ArrayList<String>();
             //String [] theList = new String[4];
 
-            String theDriver = "com.mysql.jdbc.Driver";
-            Class driver_class = Class.forName(theDriver);
-            Driver driver = (Driver) driver_class.newInstance();
-            DriverManager.registerDriver(driver);
-            Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            //String theDriver = "com.mysql.jdbc.Driver";
+            //Class driver_class = Class.forName(theDriver);
+            //Driver driver = (Driver) driver_class.newInstance();
+            //DriverManager.registerDriver(driver);
+            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+            
+            Connector c = new Connector();
+            Connection conn = c.getConnection();
+            
             PreparedStatement ps = conn.prepareStatement("call  sign_in (?,?,?)");
             ps.setString(1, username);
             ps.setInt(2, bookingID);

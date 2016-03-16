@@ -28,6 +28,10 @@
         <servlet-name>StaffModules</servlet-name>
         <servlet-class>Servlets.StaffModules</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AttendBooking</servlet-name>
+        <servlet-class>Servlets.AttendBooking</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>StaffModules</servlet-name>
         <url-pattern>/StaffModules</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendBooking</servlet-name>
+        <url-pattern>/AttendBooking</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
