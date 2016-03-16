@@ -22,17 +22,7 @@ public class RegisterModel {
 
     public boolean doRegister(int bookingID, String username) {
         try {
-            // TODO: Gain username && password from somewhere
-            //username = "000001";
-            //password = "turkeyBaconSandwich";
-            //ArrayList<String> theStrings = new ArrayList<String>();
-            //String [] theList = new String[4];
 
-            //String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
             
             Connector c = new Connector();
             Connection conn = c.getConnection();
@@ -46,9 +36,6 @@ public class RegisterModel {
 
             int i = ps.getUpdateCount();
 
-			//ResultSet rs;
-            //ps.executeUpdate();
-            //int i = ps.getUpdateCount();
             if (i == 0) {
                 return false;
             } else {

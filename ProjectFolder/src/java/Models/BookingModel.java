@@ -64,11 +64,7 @@ public class BookingModel {
 
     public void endClass(int booking, Date theTime) {
         try {
-			//String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+
 
             Connector c = new Connector();
             Connection conn = c.getConnection();
@@ -95,11 +91,7 @@ public class BookingModel {
     public ArrayList<String[]> getToAttend(String bookingID){
          ArrayList<String[]> theList = new ArrayList<String[]>();
         try {
-           //String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
+
             
             Connector c = new Connector();
             Connection conn = c.getConnection();
