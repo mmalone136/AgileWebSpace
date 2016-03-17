@@ -32,6 +32,14 @@
         <servlet-name>AttendBooking</servlet-name>
         <servlet-class>Servlets.AttendBooking</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingsForModule</servlet-name>
+        <servlet-class>Servlets.BookingsForModule</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentsForModule</servlet-name>
+        <servlet-class>Servlets.StudentsForModule</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -59,6 +67,14 @@
     <servlet-mapping>
         <servlet-name>AttendBooking</servlet-name>
         <url-pattern>/AttendBooking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingsForModule</servlet-name>
+        <url-pattern>/BookingsForModule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentsForModule</servlet-name>
+        <url-pattern>/StudentsForModule</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

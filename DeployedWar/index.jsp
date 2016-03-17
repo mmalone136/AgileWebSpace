@@ -23,7 +23,9 @@ and open the template in the editor.
 <a href="allModules.jsp">Get The Modules</a><br>
 <a href="gettoattend.jsp">Get To Attend</a><br>
 
+<a href="studentsformodule.jsp">Students For Module</a><br>
 
+<a href="bookingsformodule.jsp">Bookings For Module</a><br>
 
 
 </body>   

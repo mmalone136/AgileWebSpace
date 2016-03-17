@@ -92,7 +92,7 @@ public class StaffClassModel {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String[] temp = new String[12];
+                String[] temp = new String[3];
                 
                 temp[0] = rs.getString("idModule");
                 temp[1] = rs.getString("name");
