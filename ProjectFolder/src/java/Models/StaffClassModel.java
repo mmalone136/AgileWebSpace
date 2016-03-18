@@ -138,12 +138,18 @@ public class StaffClassModel {
                 boolean yearTutor = false;
                 String tempYear = temp[0];
                 int acc_lev = Integer.parseInt(access_level);
+                if (acc_lev >=4 && acc_lev <= 7)
+                {
                 acc_lev = acc_lev - 3;
                 int k = Integer.parseInt(tempYear.substring(2,3));          
-                if(k == acc_lev){
-                    yearTutor = true;
+                    if(k == acc_lev){
+                        yearTutor = true;
+                    }else{
+                    
+                    }
+                }else{
+                    yearTutor = false;
                 }
-                
                 
                 if(isLecturer || bossPeople || postGrad || underGrad || yearTutor)
                 {
