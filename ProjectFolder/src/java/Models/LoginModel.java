@@ -23,7 +23,7 @@ public class LoginModel {
     public String[] generalLogin(String username, String password) {
         try {
 
-            String[] theList = new String[6];
+            String[] theList = new String[8];
 
             //String theDriver = "com.mysql.jdbc.Driver";
             //Class driver_class = Class.forName(theDriver);
@@ -60,6 +60,9 @@ public class LoginModel {
                     String staffID = rs.getString("idStaff");
                     theList[4] = staffID;
                     theList[5] = "Staff";
+                    theList[6] = rs.getString("idJob");
+                    theList[7] = rs.getString("accessLevel");
+                    
                 } else {
                     String studentID = rs.getString("idStudent");
                     theList[4] = studentID;

@@ -46,7 +46,6 @@ public class Login extends HttpServlet {
 
         String[] theList;
         String[] theSecondList;
-        HttpSession session = request.getSession();
 
         LoginModel lm = new LoginModel();
         theList = lm.generalLogin(username, password);
@@ -73,6 +72,8 @@ public class Login extends HttpServlet {
             writer.append("<username>").append(username).append("</username>");
             writer.append("<firstname>").append(theList[2]).append("</firstname>");
             writer.append("<surname>").append(theList[3]).append("</surname>");
+            writer.append("<job_id>").append(theList[6]).append("</job_id>");
+            writer.append("<access_level>").append(theList[7]).append("</access_level>");
             //writer.append("<job_ID>").append(theSecondList[2]).append("</job_ID>");
             writer.append("<").append(id).append(">").append(theList[4]).append("</").append(id).append(">");
 
@@ -80,8 +81,7 @@ public class Login extends HttpServlet {
 
             request.setAttribute("list", theList);
             response.getWriter();
-            System.out.println("PLACEHOLDER");
-            //}
+
 
         } else {
             writer.append("<login_details>");

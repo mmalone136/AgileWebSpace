@@ -47,10 +47,10 @@ public class LoginModelTest {
         String password = "Cassandraisbae";
         LoginModel instance = new LoginModel();
         String[] expResult = null;
-        String[] result = instance.doLogin(username, password);
+        String[] result = instance.generalLogin(username, password);
         LoginModel loginModel = new LoginModel();
         
-        assertNotNull("= Pass",loginModel.doLogin(username,password));
+        assertNotNull("= Pass",loginModel.generalLogin(username,password));
         // TODO review the generated test code and remove the default call to fail.
         //fail("Login Failed");
     }
@@ -66,9 +66,9 @@ public class LoginModelTest {
         String password = "Cassandra";
         LoginModel instance = new LoginModel();
         String[] expResult = null;
-        String[] result = instance.doLogin(username, password);
+        String[] result = instance.generalLogin(username, password);
         LoginModel loginModel = new LoginModel();
-        assertNull("= fail",loginModel.doLogin(username,password));
+        assertNull("= fail",loginModel.generalLogin(username,password));
         // TODO review the generated test code and remove the default call to fail.
         //fail("Login Succeeded with wrong details");
     }
