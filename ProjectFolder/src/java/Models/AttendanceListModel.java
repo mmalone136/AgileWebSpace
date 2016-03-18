@@ -24,18 +24,7 @@ public class AttendanceListModel {
     // Perform login
     public int createList() {
         try {
-            // TODO: Gain username && password from somewhere
-            //username = "000001";
-            //password = "turkeyBaconSandwich";
-            //ArrayList<String> theStrings = new ArrayList<String>();
-            // [] theList = new String[4];
 
-            //String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
-            
             Connector c = new Connector();
             Connection conn = c.getConnection();
             
@@ -68,12 +57,7 @@ public class AttendanceListModel {
     public ArrayList<String[]> getAttendanceList(String attListID) {
         ArrayList<String[]> theList = new ArrayList<String[]>();
         try {
-           //String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
-            
+           
             Connector c = new Connector();
             Connection conn = c.getConnection();
             PreparedStatement ps;
