@@ -22,44 +22,31 @@ import javax.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Get http request parameters
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         String[] theList;
-        String[] theSecondList;
 
+        //Create login model and call function to carry out login functionality with database
         LoginModel lm = new LoginModel();
         theList = lm.generalLogin(username, password);
-        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
 
+        //Set up xml writer
         response.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
+        //Check if response list is empty or not
         if (theList != null) {
 
-            //theSecondList = lm.staffLogin(username);
             String tag = "";
             String id = "";
+            //Distiinguish between staff or student and set tag variables as required
             if (theList[5].equals("Staff")) {
                 tag = "staff";
                 id = "staff_id";
@@ -68,22 +55,22 @@ public class Login extends HttpServlet {
                 id = "student_id";
             }
 
+            //Add correct details to xml writer object
             writer.append("<").append(tag).append(">");
             writer.append("<username>").append(username).append("</username>");
             writer.append("<firstname>").append(theList[2]).append("</firstname>");
             writer.append("<surname>").append(theList[3]).append("</surname>");
             writer.append("<job_id>").append(theList[6]).append("</job_id>");
             writer.append("<access_level>").append(theList[7]).append("</access_level>");
-            //writer.append("<job_ID>").append(theSecondList[2]).append("</job_ID>");
             writer.append("<").append(id).append(">").append(theList[4]).append("</").append(id).append(">");
 
+            //Close xml tags
             writer.append("</").append(tag).append(">");
-
-            request.setAttribute("list", theList);
+            //Set writer as part of http response
             response.getWriter();
 
-
         } else {
+            //Return failure message in xml response data if the login has failed
             writer.append("<login_details>");
             writer.append("<user>");
             writer.append("<username>Login Failed</username>");

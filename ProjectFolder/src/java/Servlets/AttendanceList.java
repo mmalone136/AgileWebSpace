@@ -22,96 +22,58 @@ import javax.servlet.http.HttpSession;
  */
 public class AttendanceList extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AttendanceList</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AttendanceList at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    
-        @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Get http request params
         String theID = request.getParameter("AttList_ID");
 
         ArrayList<String[]> theList;
         String[] temp;
-        HttpSession session = request.getSession();
 
+        //Create new model and call function to get list of students back from database
         AttendanceListModel alm = new AttendanceListModel();
         theList = alm.getAttendanceList(theID);
-        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
 
+        //Set up xml writer for response
         response.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
+        //If list is not empty
         if (theList != null) {
             writer.append("<Register>");
             for (int x = 0; x < theList.size(); x++) {
                 temp = theList.get(x);
-
+                
+                
+                //Set xml tags for specific student
                 String header = ("<Student_" + x + ">");
                 String endTag = ("</Student_" + x + ">");
 
+                //Append all data to xml writer for the current student
                 writer.append(header);
                 writer.append("<firstname>").append(temp[0]).append("</firstname>");
                 writer.append("<surname>").append(temp[1]).append("</surname>");
                 writer.append("<student_id>").append(temp[2]).append("</student_id>");
                 writer.append("<exception>").append(temp[3]).append("</exception>");
                 writer.append("<present>").append(temp[4]).append("</present>");
-
-                System.out.println("_");
+                //Close xml tags
                 writer.append(endTag);
-                System.out.println("_");
             }
-            
-                            System.out.println("_");
+
+            //Close xml tags
             writer.append("</Register>");
-                System.out.println("_");
-            request.setAttribute("list", theList);
+            //Set response to have writer
             response.getWriter();
-            System.out.println("PLACEHOLDER");
-            //}
 
         } else {
+            //No data to return as an error occurred and/or empty list was returned from data base
             writer.append("<Register>");
             writer.append("<student_id>No Registered</student_id>");
             writer.append("</Register>");
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

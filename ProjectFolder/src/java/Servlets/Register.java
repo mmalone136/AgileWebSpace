@@ -30,32 +30,28 @@ public class Register extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Get and cast parameters from http request
         int bookingID = Integer.parseInt(request.getParameter("booking_id"));
         String username = request.getParameter("username");
 
-        //String [] theList;
-        HttpSession session = request.getSession();
-
+        //Create new register model and call register function returning boolean true or false
         RegisterModel rm = new RegisterModel();
         boolean success = rm.doRegister(bookingID, username);
+
+        //Cast response as string
         String str = String.valueOf(success);
 
+        //Set up xml response writer
         response.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
+        //Append correct details and success (true or false) to writer
         writer.append("<register>");
-
         writer.append("<user>");
         writer.append("<username>").append(username).append("</username>");
         writer.append("<success>").append(str).append("</success>");
-
         writer.append("</user>");
-
         writer.append("</register>");
-
-		  //request.setAttribute("list", theList);
-        //response.getWriter();
-                  //System.out.println("PLACEHOLDER");
     }
 }

@@ -26,28 +26,34 @@ public class StaffClasses extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Get http request params
         String staff_id = request.getParameter("staff_id");
 
         ArrayList<String[]> theList;
         String[] temp;
-        HttpSession session = request.getSession();
 
+        //Create new model and call function to get list of classes back from database
         StaffClassModel scm = new StaffClassModel();
         theList = scm.getClasss(staff_id);
-        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
 
+        //Set up xml writer for response
         response.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
+        
+        //If list is not empty
         if (theList != null) {
             writer.append("<Classes>");
             for (int x = 0; x < theList.size(); x++) {
                 temp = theList.get(x);
 
+                //Set xml tags for specific class
                 String header = ("<TheClass_" + x + ">");
                 String endTag = ("</TheClass_" + x + ">");
 
+                
+                //Append all data to xml writer for the current class
                 writer.append(header);
                 writer.append("<booking_id>").append(temp[0]).append("</booking_id>");
                 writer.append("<lecture_id>").append(temp[1]).append("</lecture_id>");
@@ -61,20 +67,17 @@ public class StaffClasses extends HttpServlet {
                 writer.append("<type>").append(temp[9]).append("</type>");
                 writer.append("<room_number>").append(temp[10]).append("</room_number>");
                 writer.append("<building>").append(temp[11]).append("</building>");
-                System.out.println("_");
+
+                //Close xml tags
                 writer.append(endTag);
-                System.out.println("_");
             }
-            
-                            System.out.println("_");
+            //Close xml tags
             writer.append("</Classes>");
-                System.out.println("_");
-            request.setAttribute("list", theList);
+            //Set response to have writer
             response.getWriter();
-            System.out.println("PLACEHOLDER");
-            //}
 
         } else {
+            //No data to return as an error occurred and/or empty list was returned from data base
             writer.append("<Classes>");
             writer.append("<booking_id>No Classes</booking_id>");
             writer.append("</Classes>");

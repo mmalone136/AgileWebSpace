@@ -25,49 +25,55 @@ public class LoginModel {
 
             String[] theList = new String[8];
 
-            //String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
-            
+            //Connect to database
             Connector c = new Connector();
             Connection conn = c.getConnection();
-            
-            
+
+            //Prepare and bind values to statement
             PreparedStatement ps = conn.prepareStatement("call login_new (?,?)");
             ps.setString(1, username);
             ps.setString(2, password);
+            //Execute statement and return values
             ResultSet rs = ps.executeQuery();
+
             String userType;
+            //Check if anything in result set, logged in success will be in first of 1 position
             if (rs.next()) {
+                //Get data values back from query
                 String returnedFirstname = rs.getString("firstname");
                 String returnedSurname = rs.getString("surname");
-                try{
-                userType = rs.getString("staff");
-                }catch (Exception e){
-                userType = rs.getString("student");
-                
+
+                //Distinguish between staff or student
+                try {
+                    userType = rs.getString("staff");
+                } catch (Exception e) {
+                    userType = rs.getString("student");
                 }
 
+                //Read values into array
                 theList[0] = username;
                 theList[1] = password;
                 theList[2] = returnedFirstname;
                 theList[3] = returnedSurname;
-                
 
+                //If is a staff
                 if (userType.equals("staff")) {
+                    //Get relevant detail for staff
                     String staffID = rs.getString("idStaff");
                     theList[4] = staffID;
                     theList[5] = "Staff";
                     theList[6] = rs.getString("idJob");
                     theList[7] = rs.getString("accessLevel");
-                    
+
                 } else {
+                    //If student
+                    //Get relevant details for students
                     String studentID = rs.getString("idStudent");
                     theList[4] = studentID;
                     theList[5] = "Student";
                 }
+
+                //Return the list of user data 
                 return theList;
             } else {
                 return null;

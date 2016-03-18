@@ -22,31 +22,36 @@ import javax.servlet.http.HttpSession;
  */
 public class BookingsForModule extends HttpServlet {
 
-     @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Get http request params
         String staff_id = request.getParameter("module_id");
 
         ArrayList<String[]> theList;
         String[] temp;
-        
+
+        //Create new model and call function to get list of bookings back from database
         ModuleModel mm = new ModuleModel();
         theList = mm.getBookingsForModule(staff_id);
-        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
 
+        //Set up xml writer for response
         response.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
+        //If list is not empty
         if (theList != null) {
             writer.append("<Bookings>");
             for (int x = 0; x < theList.size(); x++) {
                 temp = theList.get(x);
 
+                //Set xml tags for specific booking
                 String header = ("<TheBooking_" + x + ">");
                 String endTag = ("</TheBooking_" + x + ">");
 
+                //Append all data to xml writer for the current booking
                 writer.append(header);
                 writer.append("<booking_id>").append(temp[0]).append("</booking_id>");
                 writer.append("<lecture_id>").append(temp[1]).append("</lecture_id>");
@@ -61,24 +66,23 @@ public class BookingsForModule extends HttpServlet {
                 writer.append("<room_number>").append(temp[10]).append("</room_number>");
                 writer.append("<building>").append(temp[11]).append("</building>");
                 writer.append("<module_id>").append(temp[12]).append("</module_id>");
-
+                //Close xml tags
                 writer.append(endTag);
 
             }
-            
+
+             //Close xml tags            
             writer.append("</Bookings>");
-            request.setAttribute("list", theList);
+            //Set response to have writer
             response.getWriter();
 
 
         } else {
+            //No data to return as an error occurred and/or empty list was returned from data base
             writer.append("<Bookings>");
             writer.append("<booking_id>No Bookings</booking_id>");
             writer.append("</Bookings>");
         }
     }
-    
-    
-    
-    
+
 }

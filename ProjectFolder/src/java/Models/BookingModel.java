@@ -21,16 +21,17 @@ import java.util.ArrayList;
  */
 public class BookingModel {
 
+    //Function to create a new booking with data passed in, no longer used in current version of system
     public int doBooking(int lec, int loc, Date theTime, String sid, int att_list) {
         try {
 
-			//DONT THINK WE USE THIS NOW
+            //DONT THINK WE USE THIS NOW
             String theDriver = "com.mysql.jdbc.Driver";
             Class driver_class = Class.forName(theDriver);
             Driver driver = (Driver) driver_class.newInstance();
             DriverManager.registerDriver(driver);
             Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
-			//PreparedStatement ps = conn.prepareStatement("Select * from user where username=? and password=?");
+            //PreparedStatement ps = conn.prepareStatement("Select * from user where username=? and password=?");
 
             PreparedStatement ps;
 
@@ -62,69 +63,72 @@ public class BookingModel {
         return -1;
     }
 
+    //Update end time of class to show it has been completed
     public void endClass(int booking, Date theTime) {
         try {
-
-
+            //Connect to database
             Connector c = new Connector();
             Connection conn = c.getConnection();
 
+            //Prepare and bind values to statement
             PreparedStatement ps;
-
             ps = conn.prepareStatement("call end_class(?,?)");
-
             java.sql.Timestamp sDate = new java.sql.Timestamp(theTime.getTime());
-
             ps.setInt(1, booking);
             ps.setTimestamp(2, sDate);
 
+            //Execute statement
             ps.execute();
 
         } catch (Exception e) {
+            //Catch any errors/exceptions which may occur
             e.printStackTrace();
-            // null;
         }
 
     }
-    
-    
-    public ArrayList<String[]> getToAttend(String bookingID){
-         ArrayList<String[]> theList = new ArrayList<String[]>();
+
+    //Return list of students who are to attend a specific booking
+    public ArrayList<String[]> getToAttend(String bookingID) {
+        ArrayList<String[]> theList = new ArrayList<String[]>();
         try {
 
-            
+            //Connect to database
             Connector c = new Connector();
             Connection conn = c.getConnection();
+
+            //Prepare and bind values to statement
             PreparedStatement ps;
-
             ps = conn.prepareStatement("Call to_attend_booking(?)");
-
             ps.setInt(1, Integer.valueOf(bookingID));
 
+            //Execute statement and return values
             ResultSet rs = ps.executeQuery();
 
+            //Loop through results set
             while (rs.next()) {
-                String [] temp = new String[5];
+                String[] temp = new String[5];
+
+                //Get back values from query
                 String firstname = rs.getString("firstname");
                 String surname = rs.getString("surname");
                 String studentID = rs.getString("idStudent");
                 String username = rs.getString("User_username");
-                
+
                 temp[0] = firstname;
                 temp[1] = surname;
                 temp[2] = studentID;
                 temp[3] = username;
 
-                
+                //Add Student to ArrayList
                 theList.add(temp);
             }
+            //Return list
             return theList;
         } catch (Exception e) {
+            //Catch exception, return null
             e.printStackTrace();
             return null;
         }
     }
-    
-    
-    }
 
+}

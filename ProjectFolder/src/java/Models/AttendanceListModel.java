@@ -21,29 +21,20 @@ import java.util.ArrayList;
  */
 public class AttendanceListModel {
 
-    // Perform login
+    // Possibly Unused function now
     public int createList() {
         try {
 
             Connector c = new Connector();
             Connection conn = c.getConnection();
-            
-            //PreparedStatement ps = conn.prepareStatement("Select * from user where username=? and password=?");
 
             PreparedStatement ps;
-
             ps = conn.prepareStatement("insert into attendancelist () VALUES ()", Statement.RETURN_GENERATED_KEYS);
-
             ps.executeUpdate();
-
             ResultSet rs = ps.getGeneratedKeys();
-
             int generatedKey = 0;
             rs.next();
-
             generatedKey = rs.getInt(1);
-
-            //ps.executeUpdate();
             return generatedKey;
 
         } catch (Exception e) {
@@ -54,38 +45,47 @@ public class AttendanceListModel {
 
     }
 
+    //Returns attendance for the given ID passed in
     public ArrayList<String[]> getAttendanceList(String attListID) {
         ArrayList<String[]> theList = new ArrayList<String[]>();
         try {
-           
+            //Connect to database
             Connector c = new Connector();
             Connection conn = c.getConnection();
+
+            //Set up prepared statement and bind value to statement
             PreparedStatement ps;
-
             ps = conn.prepareStatement("Call view_attendance_list(?)");
-
             ps.setInt(1, Integer.valueOf(attListID));
 
+            //Execute statement, return values to result set
             ResultSet rs = ps.executeQuery();
 
+            //Loop through result set
             while (rs.next()) {
-                String [] temp = new String[5];
+                String[] temp = new String[5];
+
+                //Read Values from the result set
                 String firstname = rs.getString("firstname");
                 String surname = rs.getString("surname");
                 String studentID = rs.getString("Student_idStudent");
                 String theException = rs.getString("exception");
                 String present = rs.getString("present");
-                
+
+                //Set values to an array
                 temp[0] = firstname;
                 temp[1] = surname;
                 temp[2] = studentID;
                 temp[3] = theException;
                 temp[4] = present;
-                
+
+                //Add current response to the list
                 theList.add(temp);
             }
+            //Return the list of returned students
             return theList;
         } catch (Exception e) {
+            //There's been an error, return null
             e.printStackTrace();
             return null;
         }

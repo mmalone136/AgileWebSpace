@@ -19,63 +19,59 @@ import javax.servlet.http.HttpSession;
  *
  * @author Matt
  */
-public class StaffModules extends HttpServlet { 
-       
+public class StaffModules extends HttpServlet {
+
+    //This may not be used in current version of system
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Get http request parameters
         String staff_id = request.getParameter("staff_id");
-
 
         ArrayList<String[]> theList;
         String[] temp;
-        HttpSession session = request.getSession();
 
+        //Create new staff class model and call function to return list of modules
         StaffClassModel scm = new StaffClassModel();
         theList = scm.getAllModules(staff_id);
-        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
 
+        //Set xml response
         response.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
+        //If list not empty
         if (theList != null) {
             writer.append("<Modules>");
             for (int x = 0; x < theList.size(); x++) {
                 temp = theList.get(x);
 
+                //Set xml tags for specific module in list
                 String header = ("<TheModule_" + x + ">");
                 String endTag = ("</TheModule_" + x + ">");
 
+                //Append module data on writer for current module
                 writer.append(header);
                 writer.append("<module_id>").append(temp[0]).append("</module_id>");
                 writer.append("<name>").append(temp[1]).append("</name>");
                 writer.append("<coordinator>").append(temp[2]).append("</coordinator>");
 
-                
-                
-                System.out.println("_");
+                //Close xml tags
                 writer.append(endTag);
-                System.out.println("_");
             }
-            
-                            System.out.println("_");
+            //Close xml tags
             writer.append("</Modules>");
-                System.out.println("_");
-            request.setAttribute("list", theList);
+            //Set xml as part of rresponse
             response.getWriter();
-            System.out.println("PLACEHOLDER");
-            //}
 
         } else {
+
+            //There was an error and/or empty list was returned from database
             writer.append("<Modules>");
             writer.append("<name>No Modules</name>");
             writer.append("</Modules>");
         }
     }
-    
-    
-    
-    
+
 }
