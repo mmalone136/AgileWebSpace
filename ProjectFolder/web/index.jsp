@@ -27,6 +27,9 @@ and open the template in the editor.
 
 <a href="bookingsformodule.jsp">Bookings For Module</a><br>
 
+<a href="accessModules.jsp">Get The Modules with Access</a><br>
+
+
 
 </body>   
 

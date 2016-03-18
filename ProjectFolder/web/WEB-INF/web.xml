@@ -40,6 +40,10 @@
         <servlet-name>StudentsForModule</servlet-name>
         <servlet-class>Servlets.StudentsForModule</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffAccessModules</servlet-name>
+        <servlet-class>Servlets.StaffAccessModules</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>StudentsForModule</servlet-name>
         <url-pattern>/StudentsForModule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffAccessModules</servlet-name>
+        <url-pattern>/StaffAccessModules</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

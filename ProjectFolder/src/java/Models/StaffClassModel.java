@@ -25,17 +25,8 @@ public class StaffClassModel {
 
             ArrayList<String[]> theList = new ArrayList<String[]>();
 
-            
-
-            //String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
-            
             Connector c = new Connector();
-            Connection conn = c.getConnection();
-            
+            Connection conn = c.getConnection();            
             
             PreparedStatement ps = conn.prepareStatement("call todays_classes (?)");
             ps.setString(1, staff_ID);
@@ -66,27 +57,16 @@ public class StaffClassModel {
             return null;
         }
 
-    }
-    
-    
+    } 
     
     public ArrayList<String[]> getAllModules(String staff_ID) {
         try {
 
             ArrayList<String[]> theList = new ArrayList<String[]>();
 
-            
-
-            //String theDriver = "com.mysql.jdbc.Driver";
-            //Class driver_class = Class.forName(theDriver);
-            //Driver driver = (Driver) driver_class.newInstance();
-            //DriverManager.registerDriver(driver);
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://silva.computing.dundee.ac.uk:3306/15agileteam2db?" + "user=15agileteam2&password=349.at2.psswd");
-            
             Connector c = new Connector();
             Connection conn = c.getConnection();
-            
-            
+                        
             PreparedStatement ps = conn.prepareStatement("call get_modules_for_staff(?)");
             ps.setString(1, staff_ID);
             ResultSet rs = ps.executeQuery();
@@ -97,7 +77,6 @@ public class StaffClassModel {
                 temp[0] = rs.getString("idModule");
                 temp[1] = rs.getString("name");
                 temp[2] = rs.getString("coordinator");
-
 
                 theList.add(temp);
             }
@@ -110,4 +89,75 @@ public class StaffClassModel {
 
     }
 
+        public ArrayList<String[]> getModulesWithAccess(String access_level, String staff_id) {
+        try {
+
+            ArrayList<String[]> theList = new ArrayList<String[]>();
+
+            Connector c = new Connector();
+            Connection conn = c.getConnection();
+                        
+            PreparedStatement ps = conn.prepareStatement("call get_modules");
+            //ps.setString(1, staff_ID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String[] temp = new String[5];
+                
+                temp[0] = rs.getString("idModule");
+                temp[1] = rs.getString("name");
+                temp[2] = rs.getString("coordinator");
+                temp[3] = rs.getString("firstname");
+                temp[4] = rs.getString("surname");
+                
+                //If the staff member is the coordinator
+                boolean isLecturer = staff_id.equals(temp[2]);
+                
+                //Is the staff member dean or head of L&T
+                boolean bossPeople = access_level.equals("1");
+                
+                //if head of postgrad & is postgrad module
+                boolean postGrad = false;
+                String tempPG = temp[0];
+                int i = Integer.parseInt(tempPG.substring(2,3));          
+                if(access_level.equals("3") && i>4){
+                    postGrad = true;
+                }
+                
+                
+                //if head of undergrad & is undergrad module
+                boolean underGrad = false;
+                String tempUG = temp[0];
+                int j = Integer.parseInt(tempUG.substring(2,3));          
+                if(access_level.equals("2") && j<5){
+                    underGrad = true;
+                }
+
+                
+                //if access_level = year tutor for certain year >>> ADD
+                boolean yearTutor = false;
+                String tempYear = temp[0];
+                int acc_lev = Integer.parseInt(access_level);
+                acc_lev = acc_lev - 3;
+                int k = Integer.parseInt(tempYear.substring(2,3));          
+                if(k == acc_lev){
+                    yearTutor = true;
+                }
+                
+                
+                if(isLecturer || bossPeople || postGrad || underGrad || yearTutor)
+                {
+                    theList.add(temp);
+                }
+                }
+            return theList;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    
+    
 }

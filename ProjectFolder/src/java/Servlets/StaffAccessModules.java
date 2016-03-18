@@ -19,22 +19,21 @@ import javax.servlet.http.HttpSession;
  *
  * @author Matt
  */
-public class StaffModules extends HttpServlet { 
-       
-    @Override
+public class StaffAccessModules extends HttpServlet {
+
+     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String staff_id = request.getParameter("staff_id");
-
+                String access_level = request.getParameter("access_level");
 
         ArrayList<String[]> theList;
         String[] temp;
-        HttpSession session = request.getSession();
 
         StaffClassModel scm = new StaffClassModel();
-        theList = scm.getAllModules(staff_id);
-        //System.out.println("THE STUFF SHOULD DO THINGS HERE | "  + theList);
+        theList = scm.getModulesWithAccess(access_level, staff_id);
+
 
         response.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = response.getWriter();
@@ -52,12 +51,11 @@ public class StaffModules extends HttpServlet {
                 writer.append("<module_id>").append(temp[0]).append("</module_id>");
                 writer.append("<name>").append(temp[1]).append("</name>");
                 writer.append("<coordinator>").append(temp[2]).append("</coordinator>");
-
+                writer.append("<firstname>").append(temp[3]).append("</firstname>");
+                writer.append("<surname>").append(temp[4]).append("</surname>");
                 
-                
-                System.out.println("_");
                 writer.append(endTag);
-                System.out.println("_");
+
             }
             
                             System.out.println("_");
